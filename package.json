@@ -1,5 +1,6 @@
 {
   "name": "al-quran-offline",
+  "author": "Ma'sum",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
