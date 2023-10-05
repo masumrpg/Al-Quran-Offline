@@ -8,6 +8,7 @@ import { View } from "../../components/Themed";
 import { Image, ScrollView, Text, useColorScheme } from "react-native";
 import Images from "../../assets/bg";
 import Colors from "../../constants/Colors";
+import ScreenLoader from "../../components/ScreenLoader";
 
 const DetailScreen = () => {
   const [surah, setSurah]: [surah: any, setSurah: any] = React.useState("");
@@ -16,13 +17,12 @@ const DetailScreen = () => {
   );
 
   React.useEffect(() => {
-    // const { surahNumber } = props;
     getData();
   }, []);
 
   const getData = async () => {
     const quran = new QuranKemenag();
-    const data = await quran.getSurah(2);
+    const data = await quran.getSurah(3);
     setSurah(data);
     setVerses(data.verses || []);
   };
@@ -186,6 +186,7 @@ const DetailScreen = () => {
           ))}
         </View>
       </View>
+      <ScreenLoader />
     </ScrollView>
   );
 };
