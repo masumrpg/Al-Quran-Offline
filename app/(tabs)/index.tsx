@@ -27,12 +27,15 @@ const HomeScreen = () => {
 
   // dark and light color
   const colorScheme = useColorScheme();
-  let theme = "light";
+  let txtColor = "light";
+  let bgColor = Colors.light.background;
 
   if (colorScheme === "dark") {
-    theme = Colors.dark.text;
+    txtColor = Colors.dark.text;
+    bgColor = Colors.dark.background;
   } else {
-    theme = Colors.light.text;
+    txtColor = Colors.light.text;
+    bgColor = Colors.light.background;
   }
 
   // route
@@ -50,7 +53,7 @@ const HomeScreen = () => {
             },
           ]}
         >
-          <View key={index}>
+          <View key={index} style={{ backgroundColor: bgColor }}>
             <View
               style={{
                 margin: 10,
@@ -76,7 +79,7 @@ const HomeScreen = () => {
                       source={Images.num_bg}
                       style={{ resizeMode: "contain", height: 40, width: 40 }}
                     />
-                    <Text style={{ position: "absolute", color: theme }}>
+                    <Text style={{ position: "absolute", color: txtColor }}>
                       {item.surah_id}
                     </Text>
                   </View>
@@ -87,16 +90,16 @@ const HomeScreen = () => {
                     alignItems: "flex-start",
                   }}
                 >
-                  <Text style={{ fontSize: 17, color: theme }}>
+                  <Text style={{ fontSize: 17, color: txtColor }}>
                     {item.surah_name}
                   </Text>
-                  <Text style={{ fontSize: 15, color: theme }}>
+                  <Text style={{ fontSize: 15, color: txtColor }}>
                     {item.surah_verse_count} Ayat
                   </Text>
                 </View>
               </View>
               <View style={{ justifyContent: "center", marginRight: 15 }}>
-                <Text style={{ fontSize: 20, color: theme }} key={index}>
+                <Text style={{ fontSize: 20, color: txtColor }} key={index}>
                   {item.surah_name_arabic}
                 </Text>
               </View>

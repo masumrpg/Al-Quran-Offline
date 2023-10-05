@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Tabs } from "expo-router";
+import { useColorScheme } from "react-native";
 
 import Colors from "../../constants/Colors";
 
@@ -21,6 +21,7 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        tabBarShowLabel: false,
       }}
     >
       <Tabs.Screen
@@ -31,36 +32,14 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="bookmark" color={color} />
           ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="github"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
         }}
       />
-      {/* <Tabs.Screen
-        name="index"
-        options={{
-          title: "Al-Quran",
-          headerTitleAlign: "center",
-          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
-        }}
-      /> */}
       <Tabs.Screen
-        name="two"
+        name="about"
         options={{
           title: "About",
           headerTitleAlign: "center",
-          tabBarIcon: ({ color }) => <TabBarIcon name="heart" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>

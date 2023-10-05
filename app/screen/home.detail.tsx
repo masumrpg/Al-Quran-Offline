@@ -1,47 +1,47 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import QuranKemenag from "quran-kemenag";
-import { Surah, Verse } from "quran-kemenag/dist/intefaces";
 import React from "react";
-// import { FlashList } from "@shopify/flash-list";
 // import Icons from "../../assets/icons";
 // import Images from "../../assets/bg";
 // import Colors from "../../constants/color.constant";
 import { View } from "../../components/Themed";
-import { Image, ScrollView, Text } from "react-native";
+import { Image, ScrollView, Text, useColorScheme } from "react-native";
 import Images from "../../assets/bg";
-import Colors from "../../constants/color.constant";
+import Colors from "../../constants/Colors";
 
 const DetailScreen = () => {
-  //   const [listOfVerse, setListOfVerse]: [
-  //     listOfSurah: Verse[],
-  //     setListOfsurah: (value: any) => void
-  //   ] = React.useState([]);
-
-  //   React.useEffect(() => {
-  //     getData();
-  //   }, []);
-
-  //   const getData = async () => {
-  //     const quran = new QuranKemenag();
-  //     const data = await quran.getListSurah();
-  //     setListOfVerse(data);
-  //   };
-
-  const [listOfSurah, setListOfsurah]: [
-    listOfSurah: Surah[],
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    setListOfsurah: (value: any) => void
-  ] = React.useState([]);
+  const [surah, setSurah]: [surah: any, setSurah: any] = React.useState("");
+  const [verses, setVerses]: [verses: any[], setVerses: any] = React.useState(
+    []
+  );
 
   React.useEffect(() => {
+    // const { surahNumber } = props;
     getData();
   }, []);
 
   const getData = async () => {
     const quran = new QuranKemenag();
-    const data = await quran.getListSurah();
-    setListOfsurah(data);
+    const data = await quran.getSurah(2);
+    setSurah(data);
+    setVerses(data.verses || []);
   };
+
+  //color
+  const colorScheme = useColorScheme();
+  let txtColor = Colors.light.text;
+  let backGroundVerse = "rgba(46, 23, 59, 0.05)";
+  let cardTextColor = Colors.dark.text;
+
+  if (colorScheme === "dark") {
+    txtColor = Colors.dark.text;
+    backGroundVerse = "rgba(82, 71, 88, 0.4)";
+    cardTextColor = Colors.light.text;
+  } else {
+    txtColor = Colors.light.text;
+    backGroundVerse = "rgba(46, 23, 59, 0.05)";
+    cardTextColor = Colors.dark.text;
+  }
 
   return (
     <ScrollView>
@@ -52,12 +52,63 @@ const DetailScreen = () => {
           justifyContent: "center",
         }}
       >
-        <Image
-          source={Images.card}
-          style={{ alignSelf: "center", marginVertical: 25 }}
-        />
+        <View style={{ justifyContent: "center" }}>
+          <Image
+            source={Images.card}
+            style={{
+              width: 360,
+              height: 290,
+              alignSelf: "center",
+              marginVertical: 25,
+            }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              alignSelf: "center",
+              backgroundColor: "rgba(0, 0, 0, 0)",
+            }}
+          >
+            <Text
+              style={{
+                color: cardTextColor,
+                fontWeight: "bold",
+                fontSize: 26,
+                alignSelf: "center",
+              }}
+            >
+              {surah.surah_name}
+            </Text>
+            <Text
+              style={{
+                color: cardTextColor,
+                fontSize: 16,
+                alignSelf: "center",
+              }}
+            >
+              {surah.surah_name_bahasa}
+            </Text>
+            <View
+              style={{
+                borderBottomWidth: 0.5,
+                borderBlockColor: cardTextColor,
+                marginVertical: 15,
+              }}
+            />
+            <Text
+              style={{
+                color: cardTextColor,
+                fontSize: 16,
+                alignSelf: "center",
+              }}
+            >
+              {surah.surah_verse_count} Ayat
+            </Text>
+            <Image style={{ marginTop: 20 }} source={Images.bismillah} />
+          </View>
+        </View>
         <View>
-          {listOfSurah.map((item, index) => (
+          {verses.map((item, index) => (
             <View
               key={index}
               style={{ alignSelf: "center", marginVertical: 5 }}
@@ -65,9 +116,9 @@ const DetailScreen = () => {
               <View>
                 <View
                   style={{
-                    backgroundColor: "rgba(46, 23, 59, 0.05)",
+                    backgroundColor: backGroundVerse,
                     borderRadius: 10,
-                    width: 327,
+                    width: 360,
                     height: 47,
                     // opacity: 0.4,
                     justifyContent: "center",
@@ -86,13 +137,13 @@ const DetailScreen = () => {
                   >
                     <Text
                       style={{
-                        color: Colors.white,
+                        color: "#fff",
                         position: "absolute",
                         textAlign: "center",
                         alignSelf: "center",
                       }}
                     >
-                      {item.surah_verse_count}
+                      {item.verse_number}
                     </Text>
                   </View>
                 </View>
@@ -100,14 +151,36 @@ const DetailScreen = () => {
               <View
                 style={{
                   marginTop: 10,
+                  marginHorizontal: 15,
                   width: 327,
-                  height: 112,
+                  height: "auto",
                   borderBottomWidth: 1,
-                  borderBottomColor: "rgba(46, 23, 59, 0.05)",
+                  borderBottomColor: backGroundVerse,
                   borderRadius: 13.5,
                 }}
               >
-                <Text>{item.surah_name}</Text>
+                <Text
+                  style={{
+                    alignSelf: "flex-end",
+                    // marginRight: -12,
+                    color: txtColor,
+                    fontSize: 20,
+                    marginBottom: 40,
+                  }}
+                >
+                  {item.verse_arabic}
+                </Text>
+                <Text
+                  style={{
+                    // marginLeft: 25,
+                    textAlign: "justify",
+                    color: txtColor,
+                    fontSize: 15,
+                    marginBottom: 20,
+                  }}
+                >
+                  {item.verse_bahasa}
+                </Text>
               </View>
             </View>
           ))}
