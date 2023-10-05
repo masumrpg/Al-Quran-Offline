@@ -8,10 +8,6 @@ import { Image, Pressable, Text, View, useColorScheme } from "react-native";
 import { useRouter } from "expo-router";
 
 const HomeScreen = () => {
-  const [numberSurah, setSurahNumber] = React.useState(0);
-  console.log(numberSurah);
-  // console.log(dataS);
-
   // get data
   const [listOfSurah, setListOfsurah]: [
     listOfSurah: Surah[],
@@ -35,13 +31,14 @@ const HomeScreen = () => {
   return (
     <FlashList
       data={listOfSurah}
+      keyExtractor={(s) => `${s.surah_id}`}
       renderItem={({ item, index }) => {
         const onPress = () => {
-          route.push("/screen/home.detail");
-          setSurahNumber(item.surah_id);
-          // setSurahNumber(item.surah_id);
-          // const dataz = item.surah_id;
-          // console.log(dataz);
+          // send params
+          route.push({
+            pathname: "/homedetail",
+            params: { surahNumber: item.surah_id },
+          });
         };
         return <SurahItem key={index} data={item} onPress={onPress} />;
       }}

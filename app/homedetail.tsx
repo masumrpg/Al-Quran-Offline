@@ -4,25 +4,31 @@ import React from "react";
 // import Icons from "../../assets/icons";
 // import Images from "../../assets/bg";
 // import Colors from "../../constants/color.constant";
-import { View } from "../../components/Themed";
+import { View } from "../components/Themed";
 import { Image, ScrollView, Text, useColorScheme } from "react-native";
-import Images from "../../assets/bg";
-import Colors from "../../constants/Colors";
-import ScreenLoader from "../../components/ScreenLoader";
+import Images from "../assets/bg";
+import Colors from "../constants/Colors";
+import ScreenLoader from "../components/ScreenLoader";
+import { useLocalSearchParams } from "expo-router";
 
 const DetailScreen = () => {
+  // getParams
+  const { surahNumber } = useLocalSearchParams();
+  const data = Number(surahNumber);
+
+  // useState
   const [surah, setSurah]: [surah: any, setSurah: any] = React.useState("");
   const [verses, setVerses]: [verses: any[], setVerses: any] = React.useState(
     []
   );
 
   React.useEffect(() => {
-    getData();
+    getData(data);
   }, []);
 
-  const getData = async () => {
+  const getData = async (surah_id: number) => {
     const quran = new QuranKemenag();
-    const data = await quran.getSurah(3);
+    const data = await quran.getSurah(surah_id);
     setSurah(data);
     setVerses(data.verses || []);
   };

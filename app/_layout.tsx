@@ -64,6 +64,15 @@ function RootLayoutNav() {
             headerShown: false,
           }}
         />
+        <Stack.Screen
+          name="homedetail"
+          options={{
+            headerShown: true,
+            headerTitle: "Surah",
+            headerTitleAlign: "center",
+            headerShadowVisible: false,
+          }}
+        />
       </Stack>
     </ThemeProvider>
   );
