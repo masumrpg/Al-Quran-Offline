@@ -1,31 +1,120 @@
-import { StyleSheet } from 'react-native';
+import React from "react";
+import QuranKemenag from "quran-kemenag";
+import { Surah } from "quran-kemenag/dist/intefaces";
+import Images from "../../assets/bg";
+import Colors from "../../constants/Colors";
+import { FlashList } from "@shopify/flash-list";
+import { Image, Pressable, Text, View, useColorScheme } from "react-native";
+import { useRouter } from "expo-router";
 
-import EditScreenInfo from '../../components/EditScreenInfo';
-import { Text, View } from '../../components/Themed';
+const HomeScreen = () => {
+  // get data
+  const [listOfSurah, setListOfsurah]: [
+    listOfSurah: Surah[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    setListOfsurah: (value: any) => void
+  ] = React.useState([]);
 
-export default function TabOneScreen() {
+  React.useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const quran = new QuranKemenag();
+    const data = await quran.getListSurah();
+    setListOfsurah(data);
+  };
+
+  // dark and light color
+  const colorScheme = useColorScheme();
+  let theme = "light";
+
+  if (colorScheme === "dark") {
+    theme = Colors.dark.text;
+  } else {
+    theme = Colors.light.text;
+  }
+
+  // route
+  const route = useRouter();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <FlashList
+      data={listOfSurah}
+      renderItem={({ item, index }) => (
+        <Pressable
+          onPress={() => route.push("/screen/home.detail")}
+          style={({ pressed }) => [
+            {
+              opacity: pressed ? 0.5 : 1,
+            },
+          ]}
+        >
+          <View key={index}>
+            <View
+              style={{
+                margin: 10,
+                paddingVertical: 5,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                borderRadius: 19,
+              }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    marginLeft: 15,
+                    marginRight: 15,
+                  }}
+                >
+                  <View
+                    style={{ justifyContent: "center", alignItems: "center" }}
+                  >
+                    <Image
+                      source={Images.num_bg}
+                      style={{ resizeMode: "contain", height: 40, width: 40 }}
+                    />
+                    <Text style={{ position: "absolute", color: theme }}>
+                      {item.surah_id}
+                    </Text>
+                  </View>
+                </View>
+                <View
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <Text style={{ fontSize: 17, color: theme }}>
+                    {item.surah_name}
+                  </Text>
+                  <Text style={{ fontSize: 15, color: theme }}>
+                    {item.surah_verse_count} Ayat
+                  </Text>
+                </View>
+              </View>
+              <View style={{ justifyContent: "center", marginRight: 15 }}>
+                <Text style={{ fontSize: 20, color: theme }} key={index}>
+                  {item.surah_name_arabic}
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                marginHorizontal: 25,
+                borderBottomColor: "#aeaeae",
+                borderBottomWidth: 0.5,
+                width: "auto",
+              }}
+            />
+          </View>
+        </Pressable>
+      )}
+      estimatedItemSize={200}
+    />
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+export default HomeScreen;

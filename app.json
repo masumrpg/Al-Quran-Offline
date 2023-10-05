@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Al-Quran-Offline",
+    "name": "Al Quran Offline",
     "slug": "Al-Quran-Offline",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.masumrpg.AlQuranOffline"
     },
     "web": {
       "bundler": "metro",
@@ -34,6 +35,20 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "af69497d-ce2b-432b-9e93-338b52b51dca"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/af69497d-ce2b-432b-9e93-338b52b51dca"
     }
   }
 }
