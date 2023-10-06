@@ -42,7 +42,7 @@ const index = () => {
               height: 50,
               borderRadius: 25,
               alignItems: "center",
-              marginTop: -30,
+              marginTop: 50,
               backgroundColor: pressed ? Colors.button_pressed : Colors.button,
               justifyContent: "center",
             }}

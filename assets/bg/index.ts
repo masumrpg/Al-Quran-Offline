@@ -5,7 +5,8 @@ const Images = {
   button: require("./button-splash.png"),
   card: require("./card.png"),
   bismillah: require("./bismillah.png"),
-  card_home: require("./card_home.png")
+  card_home: require("./card_home.png"),
+  profile: require("./profile.png")
 };
 
 export default Images;
