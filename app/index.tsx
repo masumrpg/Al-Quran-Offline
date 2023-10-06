@@ -2,6 +2,7 @@ import { View, Text, Image, Pressable } from "react-native";
 import React from "react";
 import Images from "../assets/bg";
 import { useRouter } from "expo-router";
+import Colors from "../constants/Colors";
 
 const index = () => {
   const route = useRouter();
@@ -37,14 +38,24 @@ const index = () => {
         {({ pressed }) => (
           <View
             style={{
+              width: 150,
+              height: 50,
+              borderRadius: 25,
               alignItems: "center",
               marginTop: -30,
+              backgroundColor: pressed ? Colors.button_pressed : Colors.button,
+              justifyContent: "center",
             }}
           >
-            <Image
-              source={Images.button}
-              style={{ position: "absolute", opacity: pressed ? 0.9 : 1 }}
-            />
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: "bold",
+                color: Colors.primary,
+              }}
+            >
+              Lanjut
+            </Text>
           </View>
         )}
       </Pressable>

@@ -5,6 +5,8 @@ export default {
   primary: "#672CBC",
   outline: "#9E9E9E",
   semi: "rgba(46, 23, 59, 0.05)",
+  button: "#F9B091",
+  button_pressed: "#D19177",
   light: {
     text: '#000',
     background: '#ffffff',
