@@ -2,7 +2,7 @@
   "expo": {
     "name": "Al Quran Offline",
     "slug": "Al-Quran-Offline",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.masumrpg.AlQuranOffline"
+      "package": "com.masumrpg.AlQuranOffline",
+      "versionCode": 3
     },
     "web": {
       "bundler": "metro",
