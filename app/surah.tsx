@@ -11,7 +11,7 @@ import Colors from "../constants/Colors";
 import ScreenLoader from "../components/ScreenLoader";
 import { useLocalSearchParams } from "expo-router";
 
-const DetailScreen = () => {
+const SurahDetail = () => {
   // getParams
   const { surahNumber } = useLocalSearchParams();
   const data = Number(surahNumber);
@@ -197,4 +197,4 @@ const DetailScreen = () => {
   );
 };
 
-export default DetailScreen;
+export default SurahDetail;

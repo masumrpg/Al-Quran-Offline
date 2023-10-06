@@ -8,6 +8,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
+import Colors from "../constants/Colors";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -65,12 +66,13 @@ function RootLayoutNav() {
           }}
         />
         <Stack.Screen
-          name="homedetail"
+          name="surah"
           options={{
             headerShown: true,
             headerTitle: "Surah",
             headerTitleAlign: "center",
             headerShadowVisible: false,
+            headerTitleStyle: { color: Colors.primary, fontWeight: "bold" },
           }}
         />
       </Stack>

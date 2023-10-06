@@ -28,22 +28,83 @@ const HomeScreen = () => {
   // route
   const route = useRouter();
 
+  // dark and light color
+  const colorScheme = useColorScheme();
+  let txtColor = "light";
+  let txtSambutan = Colors.light.text;
+  let bgColor = Colors.light.background;
+
+  if (colorScheme === "dark") {
+    txtColor = Colors.dark.text;
+    bgColor = Colors.dark.background;
+    txtSambutan = "#A19CC5";
+  } else {
+    txtColor = Colors.light.text;
+    bgColor = Colors.light.background;
+    txtSambutan = "#8789A3";
+  }
+
   return (
-    <FlashList
-      data={listOfSurah}
-      keyExtractor={(s) => `${s.surah_id}`}
-      renderItem={({ item, index }) => {
-        const onPress = () => {
-          // send params
-          route.push({
-            pathname: "/homedetail",
-            params: { surahNumber: item.surah_id },
-          });
-        };
-        return <SurahItem key={index} data={item} onPress={onPress} />;
-      }}
-      estimatedItemSize={200}
-    />
+    <>
+      <View
+        style={{
+          width: "100%",
+          height: "auto",
+          backgroundColor: bgColor,
+        }}
+      >
+        <Text
+          style={{ color: txtSambutan, fontSize: 18, marginHorizontal: 45 }}
+        >
+          Asslamualaikum
+        </Text>
+        <Text
+          style={{
+            fontSize: 24,
+            marginHorizontal: 45,
+            marginBottom: 17,
+            fontWeight: "bold",
+            color: txtColor,
+          }}
+        >
+          Ma'sum
+        </Text>
+        <View>
+          <Image
+            source={Images.card_home}
+            style={{
+              width: 326,
+              height: 131,
+              alignSelf: "center",
+            }}
+          />
+        </View>
+        <View
+          style={{
+            borderBottomColor: Colors.primary,
+            borderBottomWidth: 2.5,
+            borderRadius: 2,
+            marginHorizontal: 45,
+            marginTop: 25,
+          }}
+        />
+      </View>
+      <FlashList
+        data={listOfSurah}
+        keyExtractor={(s) => `${s.surah_id}`}
+        renderItem={({ item, index }) => {
+          const onPress = () => {
+            // push and send params
+            route.push({
+              pathname: "/surah",
+              params: { surahNumber: item.surah_id },
+            });
+          };
+          return <SurahItem key={index} data={item} onPress={onPress} />;
+        }}
+        estimatedItemSize={200}
+      />
+    </>
   );
 };
 
@@ -79,6 +140,7 @@ const SurahItem = (props: SurahItemProps) => {
         <View
           style={{
             margin: 10,
+            marginHorizontal: 25,
             paddingVertical: 5,
             display: "flex",
             flexDirection: "row",
@@ -126,9 +188,9 @@ const SurahItem = (props: SurahItemProps) => {
         </View>
         <View
           style={{
-            marginHorizontal: 25,
-            borderBottomColor: "#aeaeae",
-            borderBottomWidth: 0.5,
+            marginHorizontal: 45,
+            borderBottomColor: Colors.semi,
+            borderBottomWidth: 1.5,
             width: "auto",
           }}
         />
